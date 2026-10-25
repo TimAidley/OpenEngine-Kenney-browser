@@ -328,62 +328,110 @@ void SelectFlatPack(const std::vector<PackFile>& files, std::vector<bool>& keep)
 
 // --- Destination paths ------------------------------------------------------
 
-bool IsBaseSizeFolder(std::string_view dir)
+// A kept file's place in the pack's asset folder while folders collapse.
+struct Placement
 {
-    return dir == "default" || dir == "default size" || dir.starts_with("default (") || dir == "sprites" ||
-           dir == "1x";
-}
+    std::vector<std::string> Dirs; // original spelling
+    std::string Name;
+    bool IsPackMetadata = false; // a root License, preview or sample file
+};
 
-// Whether the folder at Dirs[0..index] only told formats or sizes apart.
-bool IsDroppedFromDestination(const PackFile& file, size_t index, const std::set<std::string>& largeDirs)
+bool StartsWithFolder(const Placement& placement, const std::vector<std::string>& folder)
 {
-    const std::string& dir = file.Dirs[index];
-    if (dir == "models" || dir == "model" || dir == "png" || ClassifyFormatFolder(dir) != FormatFolder::None)
-        return true;
-    if (!IsBaseSizeFolder(dir))
+    if (placement.Dirs.size() < folder.size())
         return false;
-    std::string parent;
-    for (size_t i = 0; i < index; ++i)
-        parent += file.Dirs[i] + "/";
-    return std::any_of(largeDirs.begin(), largeDirs.end(), [&parent](const std::string& large) {
-        return large.starts_with(parent) && large.find('/', parent.size()) == std::string::npos;
-    });
+    for (size_t i = 0; i < folder.size(); ++i)
+    {
+        if (!EqualsIgnoreCase(placement.Dirs[i], folder[i]))
+            return false;
+    }
+    return true;
 }
 
-std::string DestinationPath(const PackFile& file, const std::set<std::string>& largeDirs)
+// The subfolders directly inside `folder`, each once (case-insensitive).
+std::vector<std::string> ChildFolders(const std::vector<Placement>& placements, const std::vector<std::string>& folder)
 {
-    const std::vector<std::string_view> parts = Split(file.Path, '/');
-    std::vector<std::string_view> kept;
-    size_t dirIndex = 0;
-    for (size_t i = 0; i + 1 < parts.size(); ++i)
+    std::map<std::string, std::string> children; // lower case -> original spelling
+    for (const Placement& placement : placements)
     {
-        if (parts[i].empty())
-            continue;
-        if (!IsDroppedFromDestination(file, dirIndex, largeDirs))
-            kept.push_back(parts[i]);
-        ++dirIndex;
+        if (placement.Dirs.size() > folder.size() && StartsWithFolder(placement, folder))
+            children.emplace(ToLowerAscii(placement.Dirs[folder.size()]), placement.Dirs[folder.size()]);
     }
-    kept.push_back(parts.back());
-    return Join(kept, "/");
+    std::vector<std::string> names;
+    for (const auto& [lower, name] : children)
+        names.push_back(name);
+    return names;
+}
+
+std::string JoinPlacement(const Placement& placement)
+{
+    std::vector<std::string_view> parts(placement.Dirs.begin(), placement.Dirs.end());
+    parts.push_back(placement.Name);
+    return Join(parts, "/");
+}
+
+// Moves the contents of `folder`'s only subfolder up into `folder` when
+// `folder` holds no files of its own, so no two folders' files mix. The pack
+// root's License, preview and sample files do not count as its files. Refuses
+// a move that would give two files one path. True when it moved something.
+bool AbsorbOnlySubfolder(std::vector<Placement>& placements, const std::vector<std::string>& folder)
+{
+    const bool hasFiles = std::any_of(placements.begin(), placements.end(), [&folder](const Placement& placement) {
+        return !placement.IsPackMetadata && placement.Dirs.size() == folder.size() && StartsWithFolder(placement, folder);
+    });
+    if (hasFiles || ChildFolders(placements, folder).size() != 1)
+        return false;
+
+    std::vector<Placement> moved = placements;
+    std::set<std::string> paths;
+    for (Placement& placement : moved)
+    {
+        if (placement.Dirs.size() > folder.size() && StartsWithFolder(placement, folder))
+            placement.Dirs.erase(placement.Dirs.begin() + static_cast<std::ptrdiff_t>(folder.size()));
+        if (!paths.insert(ToLowerAscii(JoinPlacement(placement))).second)
+            return false;
+    }
+    placements = std::move(moved);
+    return true;
+}
+
+void CollapseFolders(std::vector<Placement>& placements, const std::vector<std::string>& folder)
+{
+    while (AbsorbOnlySubfolder(placements, folder))
+    {
+    }
+    for (const std::string& child : ChildFolders(placements, folder))
+    {
+        std::vector<std::string> childFolder = folder;
+        childFolder.push_back(child);
+        CollapseFolders(placements, childFolder);
+    }
 }
 
 std::vector<ImportEntry> BuildImportEntries(const std::vector<PackFile>& files, const std::vector<bool>& keep)
 {
-    const std::set<std::string> largeDirs = FindLargeVariantDirs(files);
     std::vector<ImportEntry> entries;
-    std::map<std::string, size_t> destinationCounts; // lower case: the asset folder may not tell case apart
+    std::vector<Placement> placements;
     for (size_t i = 0; i < files.size(); ++i)
     {
         if (!keep[i])
             continue;
-        entries.push_back({files[i].Path, DestinationPath(files[i], largeDirs)});
-        ++destinationCounts[ToLowerAscii(entries.back().Destination)];
+        Placement placement;
+        for (std::string_view part : Split(files[i].Path, '/'))
+        {
+            if (!part.empty())
+                placement.Dirs.emplace_back(part);
+        }
+        placement.Name = placement.Dirs.back();
+        placement.Dirs.pop_back();
+        placement.IsPackMetadata = placement.Dirs.empty();
+        placements.push_back(std::move(placement));
+        entries.push_back({files[i].Path, {}});
     }
-    for (ImportEntry& entry : entries)
-    {
-        if (destinationCounts[ToLowerAscii(entry.Destination)] > 1)
-            entry.Destination = entry.Source;
-    }
+
+    CollapseFolders(placements, {});
+    for (size_t i = 0; i < entries.size(); ++i)
+        entries[i].Destination = JoinPlacement(placements[i]);
     return entries;
 }
 

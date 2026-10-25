@@ -245,61 +245,76 @@ TEST(KenneyExtractRules, DropsMacMetadataAndDirectories)
     EXPECT_EQ(Sources(SelectImportEntries(entries)), (std::vector<std::string>{"PNG/a.png"}));
 }
 
-TEST(KenneyExtractRules, DestinationDropsModelsAndFormatFolders)
+TEST(KenneyExtractRules, DestinationCollapsesSingleFolderChainToPackRoot)
 {
-    const auto destinations = Destinations(SelectImportEntries(LoadFixture("kenney_modular-buildings")));
+    const auto destinations = Destinations(SelectImportEntries(LoadFixture("kenney_cube-pets_1.0")));
+    EXPECT_TRUE(Contains(destinations, "animal-fox.glb"));
     EXPECT_TRUE(Contains(destinations, "Textures/colormap.png"));
-    EXPECT_TRUE(Contains(destinations, "Textures/variation-a.png"));
     EXPECT_TRUE(Contains(destinations, "License.txt"));
+    EXPECT_TRUE(Contains(destinations, "Preview.png"));
+    EXPECT_EQ(destinations.size(), 27u);
+}
+
+TEST(KenneyExtractRules, DestinationKeepsFoldersWhoseFilesWouldMix)
+{
+    // Models holds "GLB format" and "Textures" (the variation maps): Models
+    // collapses into the root, but the two folders beside each other stay.
+    const auto destinations = Destinations(SelectImportEntries(LoadFixture("kenney_modular-buildings")));
+    EXPECT_TRUE(Contains(destinations, "GLB format/Textures/colormap.png"));
+    EXPECT_TRUE(Contains(destinations, "Textures/variation-a.png"));
     for (const std::string& path : destinations)
     {
         EXPECT_EQ(path.find("Models"), std::string::npos) << path;
-        EXPECT_EQ(path.find("format"), std::string::npos) << path;
         if (HasExt(path, ".glb"))
-            EXPECT_EQ(path.find('/'), std::string::npos) << path;
+            EXPECT_TRUE(path.starts_with("GLB format/")) << path;
     }
 }
 
-TEST(KenneyExtractRules, DestinationDropsBareGltfFolder)
+TEST(KenneyExtractRules, DestinationCollapsesBareGltfFolder)
 {
     const auto entries = SelectImportEntries(LoadFixture("kenney_3d-road-tiles"));
     for (const ImportEntry& entry : entries)
         EXPECT_EQ(entry.Destination.find('/'), std::string::npos) << entry.Destination;
 }
 
-TEST(KenneyExtractRules, DestinationDropsPngAndBaseSizeFolders)
+TEST(KenneyExtractRules, DestinationCollapsesOnlyFolderInsideAFolder)
 {
-    const std::vector<std::string> entries = {
-        "PNG/Default size/tile.png",
-        "PNG/Retina/tile.png",
-        "Generic/Default/button.png",
-        "Generic/Double/button.png",
-        "Tiles/Large tiles/Thick outline/a.png",
-        "Tilesheets/sheet.png",
-    };
-    EXPECT_EQ(Destinations(SelectImportEntries(entries)),
-              (std::vector<std::string>{"tile.png", "Generic/button.png", "Tiles/Large tiles/Thick outline/a.png",
-                                        "Tilesheets/sheet.png"}));
+    // Retina is dropped, so PNG holds only "Default size" and absorbs it; PNG
+    // itself stays because Tilesheet sits beside it at the root.
+    const auto destinations = Destinations(SelectImportEntries(LoadFixture("kenney_tower-defense-top-down")));
+    EXPECT_EQ(CountIf(destinations, [](const std::string& p) {
+                  return p.starts_with("PNG/") && p.find('/', 4) == std::string::npos;
+              }),
+              299u);
+    EXPECT_GT(CountIf(destinations, [](const std::string& p) { return p.starts_with("Tilesheet/"); }), 0u);
 }
 
-TEST(KenneyExtractRules, DestinationKeepsDefaultFolderWithoutLargeSibling)
+TEST(KenneyExtractRules, DestinationKeepsSiblingFolders)
 {
-    const std::vector<std::string> entries = {"Tiles/Default/a.png", "Tiles/Transparent/a.png"};
-    EXPECT_EQ(Destinations(SelectImportEntries(entries)),
-              (std::vector<std::string>{"Tiles/Default/a.png", "Tiles/Transparent/a.png"}));
+    const auto destinations = Destinations(SelectImportEntries(LoadFixture("kenney_domino-pack")));
+    EXPECT_EQ(CountIf(destinations, [](const std::string& p) { return p.starts_with("PNG/Dark/"); }), 29u);
+    EXPECT_GT(CountIf(destinations, [](const std::string& p) { return p.starts_with("Tilesheets/"); }), 0u);
 }
 
-TEST(KenneyExtractRules, CollidingDestinationsKeepSourcePaths)
+TEST(KenneyExtractRules, DestinationCollapsesThroughNestedSingleFolders)
 {
     const std::vector<std::string> entries = {
-        "Models/GLB format/Textures/colormap.png",
-        "Models/GLTF format/Textures/colormap.png",
-        "Models/GLB format/wall.glb",
-        "Models/GLTF format/tower.glb",
+        "License.txt",
+        "Tiles/Default/a.png",
+        "Tiles/Transparent/a.png",
+        "Sounds/Extra/Loud/b.ogg",
+        "Sounds/c.ogg",
     };
     EXPECT_EQ(Destinations(SelectImportEntries(entries)),
-              (std::vector<std::string>{"Models/GLB format/Textures/colormap.png",
-                                        "Models/GLTF format/Textures/colormap.png", "wall.glb", "tower.glb"}));
+              (std::vector<std::string>{"License.txt", "Tiles/Default/a.png", "Tiles/Transparent/a.png",
+                                        "Sounds/Extra/b.ogg", "Sounds/c.ogg"}));
+}
+
+TEST(KenneyExtractRules, DestinationDoesNotCollapseOntoARootFile)
+{
+    const std::vector<std::string> entries = {"License.txt", "PNG/License.txt", "PNG/a.png"};
+    EXPECT_EQ(Destinations(SelectImportEntries(entries)),
+              (std::vector<std::string>{"License.txt", "PNG/License.txt", "PNG/a.png"}));
 }
 
 // Every pack of an unzipped All-in-1 bundle: the import keeps License.txt, no

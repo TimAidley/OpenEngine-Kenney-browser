@@ -26,12 +26,13 @@ struct ImportEntry
 /// no glTF keeps its FBX instead). A 2D, UI, icon or audio pack keeps individual
 /// PNGs and atlases at the base size, TTF fonts and OGG audio.
 ///
-/// The destination drops the folders that only told the formats or sizes apart:
-/// "Models", format folders ("GLB format", "gLTF", "PNG") and a base-size folder
-/// ("Default") whose large sibling was dropped. "Models/GLB format/fox.glb" and
-/// "Models/GLB format/Textures/colormap.png" become "fox.glb" and
-/// "Textures/colormap.png", so a model's relative texture path still resolves.
-/// Files that would land on the same destination keep their source paths.
+/// The destination collapses folders as far as it can without mixing files
+/// from separate folders: a folder that holds no files and exactly one
+/// subfolder takes that subfolder's contents, repeatedly, from the pack root
+/// down. The root's License, preview and sample files do not count as files.
+/// "Models/GLB format/fox.glb" and "Models/GLB format/Textures/colormap.png"
+/// become "fox.glb" and "Textures/colormap.png", so a model's relative texture
+/// path still resolves; "PNG/Dark/…" beside "Tilesheets/…" stays as it is.
 std::vector<ImportEntry> SelectImportEntries(std::span<const std::string> entries);
 
 } // namespace GameEngine::KenneyAssets
