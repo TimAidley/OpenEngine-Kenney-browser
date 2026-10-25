@@ -35,16 +35,16 @@ std::vector<std::string> ListPackFiles(const std::filesystem::path& root)
     return files;
 }
 
-bool CopyKeptFiles(const std::filesystem::path& staging, const std::vector<std::string>& kept,
+bool CopyKeptFiles(const std::filesystem::path& staging, const std::vector<ImportEntry>& kept,
                    const std::filesystem::path& destination, KenneyImportResult& result)
 {
-    for (const std::string& relative : kept)
+    for (const ImportEntry& entry : kept)
     {
-        const std::filesystem::path target = destination / std::filesystem::path(relative);
+        const std::filesystem::path target = destination / std::filesystem::path(entry.Destination);
         std::error_code ec;
         std::filesystem::create_directories(target.parent_path(), ec);
         if (!ec)
-            std::filesystem::copy_file(staging / std::filesystem::path(relative), target,
+            std::filesystem::copy_file(staging / std::filesystem::path(entry.Source), target,
                                        std::filesystem::copy_options::overwrite_existing, ec);
         if (ec)
         {
@@ -83,7 +83,7 @@ KenneyImportResult ImportKenneyPack(const std::filesystem::path& zipFile, const 
 
     if (ExtractZip(zipFile, staging, result.Error))
     {
-        const std::vector<std::string> kept = SelectImportEntries(ListPackFiles(staging));
+        const std::vector<ImportEntry> kept = SelectImportEntries(ListPackFiles(staging));
         if (kept.empty())
             result.Error = "the pack holds no files to import";
         else

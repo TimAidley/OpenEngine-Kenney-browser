@@ -326,9 +326,70 @@ void SelectFlatPack(const std::vector<PackFile>& files, std::vector<bool>& keep)
     DropFlatDuplicates(files, keep);
 }
 
+// --- Destination paths ------------------------------------------------------
+
+bool IsBaseSizeFolder(std::string_view dir)
+{
+    return dir == "default" || dir == "default size" || dir.starts_with("default (") || dir == "sprites" ||
+           dir == "1x";
+}
+
+// Whether the folder at Dirs[0..index] only told formats or sizes apart.
+bool IsDroppedFromDestination(const PackFile& file, size_t index, const std::set<std::string>& largeDirs)
+{
+    const std::string& dir = file.Dirs[index];
+    if (dir == "models" || dir == "model" || dir == "png" || ClassifyFormatFolder(dir) != FormatFolder::None)
+        return true;
+    if (!IsBaseSizeFolder(dir))
+        return false;
+    std::string parent;
+    for (size_t i = 0; i < index; ++i)
+        parent += file.Dirs[i] + "/";
+    return std::any_of(largeDirs.begin(), largeDirs.end(), [&parent](const std::string& large) {
+        return large.starts_with(parent) && large.find('/', parent.size()) == std::string::npos;
+    });
+}
+
+std::string DestinationPath(const PackFile& file, const std::set<std::string>& largeDirs)
+{
+    const std::vector<std::string_view> parts = Split(file.Path, '/');
+    std::vector<std::string_view> kept;
+    size_t dirIndex = 0;
+    for (size_t i = 0; i + 1 < parts.size(); ++i)
+    {
+        if (parts[i].empty())
+            continue;
+        if (!IsDroppedFromDestination(file, dirIndex, largeDirs))
+            kept.push_back(parts[i]);
+        ++dirIndex;
+    }
+    kept.push_back(parts.back());
+    return Join(kept, "/");
+}
+
+std::vector<ImportEntry> BuildImportEntries(const std::vector<PackFile>& files, const std::vector<bool>& keep)
+{
+    const std::set<std::string> largeDirs = FindLargeVariantDirs(files);
+    std::vector<ImportEntry> entries;
+    std::map<std::string, size_t> destinationCounts; // lower case: the asset folder may not tell case apart
+    for (size_t i = 0; i < files.size(); ++i)
+    {
+        if (!keep[i])
+            continue;
+        entries.push_back({files[i].Path, DestinationPath(files[i], largeDirs)});
+        ++destinationCounts[ToLowerAscii(entries.back().Destination)];
+    }
+    for (ImportEntry& entry : entries)
+    {
+        if (destinationCounts[ToLowerAscii(entry.Destination)] > 1)
+            entry.Destination = entry.Source;
+    }
+    return entries;
+}
+
 } // namespace
 
-std::vector<std::string> SelectImportEntries(std::span<const std::string> entries)
+std::vector<ImportEntry> SelectImportEntries(std::span<const std::string> entries)
 {
     std::vector<PackFile> files;
     files.reserve(entries.size());
@@ -355,13 +416,7 @@ std::vector<std::string> SelectImportEntries(std::span<const std::string> entrie
     else
         SelectFlatPack(files, keep);
 
-    std::vector<std::string> kept;
-    for (size_t i = 0; i < files.size(); ++i)
-    {
-        if (keep[i])
-            kept.push_back(files[i].Path);
-    }
-    return kept;
+    return BuildImportEntries(files, keep);
 }
 
 } // namespace GameEngine::KenneyAssets

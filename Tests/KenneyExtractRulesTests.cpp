@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+using GameEngine::KenneyAssets::ImportEntry;
 using GameEngine::KenneyAssets::SelectImportEntries;
 
 namespace
@@ -43,6 +44,22 @@ bool HasExt(const std::string& path, const char* ext)
     return lower.ends_with(ext);
 }
 
+std::vector<std::string> Sources(const std::vector<ImportEntry>& entries)
+{
+    std::vector<std::string> sources;
+    for (const ImportEntry& entry : entries)
+        sources.push_back(entry.Source);
+    return sources;
+}
+
+std::vector<std::string> Destinations(const std::vector<ImportEntry>& entries)
+{
+    std::vector<std::string> destinations;
+    for (const ImportEntry& entry : entries)
+        destinations.push_back(entry.Destination);
+    return destinations;
+}
+
 bool Contains(const std::vector<std::string>& paths, const std::string& path)
 {
     return std::find(paths.begin(), paths.end(), path) != paths.end();
@@ -52,7 +69,7 @@ bool Contains(const std::vector<std::string>& paths, const std::string& path)
 
 TEST(KenneyExtractRules, NewLayoutPackKeepsGlbTexturesAndRootFilesOnly)
 {
-    const auto kept = SelectImportEntries(LoadFixture("kenney_modular-buildings"));
+    const auto kept = Sources(SelectImportEntries(LoadFixture("kenney_modular-buildings")));
     EXPECT_EQ(CountIf(kept, [](const std::string& p) { return HasExt(p, ".glb"); }), 108u);
     EXPECT_TRUE(Contains(kept, "Models/GLB format/Textures/colormap.png"));
     EXPECT_FALSE(Contains(kept, "Models/FBX format/Textures/colormap.png"));
@@ -72,7 +89,7 @@ TEST(KenneyExtractRules, NewLayoutPackKeepsGlbTexturesAndRootFilesOnly)
 TEST(KenneyExtractRules, NewLayoutPackKeepsVariationTextures)
 {
     const auto entries = LoadFixture("kenney_modular-buildings");
-    const auto kept = SelectImportEntries(entries);
+    const auto kept = Sources(SelectImportEntries(entries));
     size_t variations = 0;
     for (const std::string& entry : entries)
     {
@@ -87,7 +104,7 @@ TEST(KenneyExtractRules, NewLayoutPackKeepsVariationTextures)
 
 TEST(KenneyExtractRules, OldLayoutPackKeepsGlbFromGltfFormatFolderAndDropsSprites)
 {
-    const auto kept = SelectImportEntries(LoadFixture("kenney_city-kit-commercial"));
+    const auto kept = Sources(SelectImportEntries(LoadFixture("kenney_city-kit-commercial")));
     EXPECT_EQ(CountIf(kept, [](const std::string& p) { return HasExt(p, ".glb"); }), 56u);
     for (const std::string& path : kept)
     {
@@ -98,7 +115,7 @@ TEST(KenneyExtractRules, OldLayoutPackKeepsGlbFromGltfFormatFolderAndDropsSprite
 
 TEST(KenneyExtractRules, OldLayoutPackDropsTexturesOfOtherFormats)
 {
-    const auto kept = SelectImportEntries(LoadFixture("kenney_retro-urban-kit"));
+    const auto kept = Sources(SelectImportEntries(LoadFixture("kenney_retro-urban-kit")));
     EXPECT_EQ(CountIf(kept, [](const std::string& p) { return HasExt(p, ".glb"); }), 100u);
     for (const std::string& path : kept)
     {
@@ -109,7 +126,7 @@ TEST(KenneyExtractRules, OldLayoutPackDropsTexturesOfOtherFormats)
 
 TEST(KenneyExtractRules, GltfOnlyPackKeepsGltfAndDropsScripts)
 {
-    const auto kept = SelectImportEntries(LoadFixture("kenney_3d-road-tiles"));
+    const auto kept = Sources(SelectImportEntries(LoadFixture("kenney_3d-road-tiles")));
     EXPECT_EQ(CountIf(kept, [](const std::string& p) { return HasExt(p, ".gltf"); }), 302u);
     for (const std::string& path : kept)
         EXPECT_FALSE(path.starts_with("Convert/") || path.starts_with("Unity package/")) << path;
@@ -117,7 +134,7 @@ TEST(KenneyExtractRules, GltfOnlyPackKeepsGltfAndDropsScripts)
 
 TEST(KenneyExtractRules, FlatPackKeepsPngsAndAtlasesButNotVectors)
 {
-    const auto kept = SelectImportEntries(LoadFixture("kenney_domino-pack"));
+    const auto kept = Sources(SelectImportEntries(LoadFixture("kenney_domino-pack")));
     EXPECT_EQ(CountIf(kept, [](const std::string& p) { return HasExt(p, ".svg"); }), 0u);
     EXPECT_EQ(CountIf(kept, [](const std::string& p) { return p.starts_with("PNG/"); }), 145u);
     EXPECT_GT(CountIf(kept, [](const std::string& p) { return p.starts_with("Tilesheets/"); }), 0u);
@@ -125,7 +142,7 @@ TEST(KenneyExtractRules, FlatPackKeepsPngsAndAtlasesButNotVectors)
 
 TEST(KenneyExtractRules, FlatPackDropsRetinaFolderAndVectorSources)
 {
-    const auto kept = SelectImportEntries(LoadFixture("kenney_tower-defense-top-down"));
+    const auto kept = Sources(SelectImportEntries(LoadFixture("kenney_tower-defense-top-down")));
     EXPECT_EQ(CountIf(kept, [](const std::string& p) { return p.starts_with("PNG/Default size/"); }), 299u);
     for (const std::string& path : kept)
     {
@@ -145,7 +162,7 @@ TEST(KenneyExtractRules, BothGlbAndGltfFormatFoldersPreferGlbAndKeepUniqueGltfMo
         "Models/GLTF format/tower.glb",
         "Models/FBX format/wall.fbx",
     };
-    const auto kept = SelectImportEntries(entries);
+    const auto kept = Sources(SelectImportEntries(entries));
     EXPECT_EQ(kept, (std::vector<std::string>{"License.txt", "Models/GLB format/wall.glb",
                                               "Models/GLB format/Textures/colormap.png",
                                               "Models/GLTF format/tower.glb"}));
@@ -163,7 +180,7 @@ TEST(KenneyExtractRules, FbxOnlyPackKeepsFbxAndSkinsButNotSources)
         "Skins/Source/survivorMaleA.psd",
         "Preview/run.png",
     };
-    const auto kept = SelectImportEntries(entries);
+    const auto kept = Sources(SelectImportEntries(entries));
     EXPECT_EQ(kept, (std::vector<std::string>{"License.txt", "Preview.png", "Models/characterMedium.fbx",
                                               "Animations/run.fbx", "Skins/survivorMaleA.png"}));
 }
@@ -180,7 +197,7 @@ TEST(KenneyExtractRules, AtlasSizeSuffixKeepsBaseSheetOnly)
         "Tilemap/tilemap.png",
         "Tilemap/tilemap_packed.png",
     };
-    const auto kept = SelectImportEntries(entries);
+    const auto kept = Sources(SelectImportEntries(entries));
     EXPECT_EQ(kept, (std::vector<std::string>{"Spritesheet/sheet_white1x.png", "Spritesheet/sheet_white1x.xml",
                                               "Spritesheet/spritesheet_default.png", "Tilemap/tilemap.png",
                                               "Tilemap/tilemap_packed.png"}));
@@ -201,7 +218,7 @@ TEST(KenneyExtractRules, FontsPreferTtfAndKeepGlyphMaps)
         "Generic/generic_sheet_double.png",
         "Generic/generic_sheet_double.xml",
     };
-    const auto kept = SelectImportEntries(entries);
+    const auto kept = Sources(SelectImportEntries(entries));
     EXPECT_EQ(kept, (std::vector<std::string>{"Generic/Fonts/kenney_input_generic.ttf",
                                               "Generic/Fonts/kenney_input_generic_map.txt",
                                               "Generic/Default/button.png", "Generic/generic_sheet_default.png",
@@ -211,21 +228,78 @@ TEST(KenneyExtractRules, FontsPreferTtfAndKeepGlyphMaps)
 TEST(KenneyExtractRules, AudioPackKeepsOggAndPreviewSound)
 {
     const std::vector<std::string> entries = {"License.txt", "Preview.ogg", "Audio/click.ogg", "Audio/click.wav"};
-    const auto kept = SelectImportEntries(entries);
+    const auto kept = Sources(SelectImportEntries(entries));
     EXPECT_EQ(kept, (std::vector<std::string>{"License.txt", "Preview.ogg", "Audio/click.ogg"}));
 }
 
 TEST(KenneyExtractRules, VectorOnlyPackKeepsSvg)
 {
     const std::vector<std::string> entries = {"License.txt", "Vector/a.svg", "Vector/a.swf"};
-    const auto kept = SelectImportEntries(entries);
+    const auto kept = Sources(SelectImportEntries(entries));
     EXPECT_EQ(kept, (std::vector<std::string>{"License.txt", "Vector/a.svg"}));
 }
 
 TEST(KenneyExtractRules, DropsMacMetadataAndDirectories)
 {
     const std::vector<std::string> entries = {"PNG/", "PNG/a.png", "__MACOSX/PNG/._a.png", "PNG/.DS_Store"};
-    EXPECT_EQ(SelectImportEntries(entries), (std::vector<std::string>{"PNG/a.png"}));
+    EXPECT_EQ(Sources(SelectImportEntries(entries)), (std::vector<std::string>{"PNG/a.png"}));
+}
+
+TEST(KenneyExtractRules, DestinationDropsModelsAndFormatFolders)
+{
+    const auto destinations = Destinations(SelectImportEntries(LoadFixture("kenney_modular-buildings")));
+    EXPECT_TRUE(Contains(destinations, "Textures/colormap.png"));
+    EXPECT_TRUE(Contains(destinations, "Textures/variation-a.png"));
+    EXPECT_TRUE(Contains(destinations, "License.txt"));
+    for (const std::string& path : destinations)
+    {
+        EXPECT_EQ(path.find("Models"), std::string::npos) << path;
+        EXPECT_EQ(path.find("format"), std::string::npos) << path;
+        if (HasExt(path, ".glb"))
+            EXPECT_EQ(path.find('/'), std::string::npos) << path;
+    }
+}
+
+TEST(KenneyExtractRules, DestinationDropsBareGltfFolder)
+{
+    const auto entries = SelectImportEntries(LoadFixture("kenney_3d-road-tiles"));
+    for (const ImportEntry& entry : entries)
+        EXPECT_EQ(entry.Destination.find('/'), std::string::npos) << entry.Destination;
+}
+
+TEST(KenneyExtractRules, DestinationDropsPngAndBaseSizeFolders)
+{
+    const std::vector<std::string> entries = {
+        "PNG/Default size/tile.png",
+        "PNG/Retina/tile.png",
+        "Generic/Default/button.png",
+        "Generic/Double/button.png",
+        "Tiles/Large tiles/Thick outline/a.png",
+        "Tilesheets/sheet.png",
+    };
+    EXPECT_EQ(Destinations(SelectImportEntries(entries)),
+              (std::vector<std::string>{"tile.png", "Generic/button.png", "Tiles/Large tiles/Thick outline/a.png",
+                                        "Tilesheets/sheet.png"}));
+}
+
+TEST(KenneyExtractRules, DestinationKeepsDefaultFolderWithoutLargeSibling)
+{
+    const std::vector<std::string> entries = {"Tiles/Default/a.png", "Tiles/Transparent/a.png"};
+    EXPECT_EQ(Destinations(SelectImportEntries(entries)),
+              (std::vector<std::string>{"Tiles/Default/a.png", "Tiles/Transparent/a.png"}));
+}
+
+TEST(KenneyExtractRules, CollidingDestinationsKeepSourcePaths)
+{
+    const std::vector<std::string> entries = {
+        "Models/GLB format/Textures/colormap.png",
+        "Models/GLTF format/Textures/colormap.png",
+        "Models/GLB format/wall.glb",
+        "Models/GLTF format/tower.glb",
+    };
+    EXPECT_EQ(Destinations(SelectImportEntries(entries)),
+              (std::vector<std::string>{"Models/GLB format/Textures/colormap.png",
+                                        "Models/GLTF format/Textures/colormap.png", "wall.glb", "tower.glb"}));
 }
 
 // Every pack of an unzipped All-in-1 bundle: the import keeps License.txt, no
@@ -253,7 +327,12 @@ TEST(KenneyExtractRules, BundlePacksFollowTheRules)
                 if (file.is_regular_file())
                     entries.push_back(fs::relative(file.path(), pack.path()).generic_string());
             }
-            const auto kept = SelectImportEntries(entries);
+            const auto selected = SelectImportEntries(entries);
+            const auto kept = Sources(selected);
+            std::vector<std::string> destinations = Destinations(selected);
+            std::sort(destinations.begin(), destinations.end());
+            EXPECT_EQ(std::adjacent_find(destinations.begin(), destinations.end()), destinations.end())
+                << pack.path().filename().string() << ": two files share a destination";
             const std::string label = pack.path().filename().string();
             EXPECT_TRUE(Contains(kept, "License.txt")) << label;
 
