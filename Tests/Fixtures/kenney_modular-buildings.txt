@@ -1,0 +1,563 @@
+License.txt
+Models/
+Models/FBX format/
+Models/FBX format/building-block.fbx
+Models/FBX format/building-corner-bottom.fbx
+Models/FBX format/building-corner-top.fbx
+Models/FBX format/building-corner-window-middle.fbx
+Models/FBX format/building-corner-window-narrow.fbx
+Models/FBX format/building-corner-window-sill.fbx
+Models/FBX format/building-corner-window-top-round.fbx
+Models/FBX format/building-corner-window-top-square.fbx
+Models/FBX format/building-corner-window.fbx
+Models/FBX format/building-corner.fbx
+Models/FBX format/building-door-window-narrow.fbx
+Models/FBX format/building-door-window.fbx
+Models/FBX format/building-door.fbx
+Models/FBX format/building-edges-door.fbx
+Models/FBX format/building-sample-house-a.fbx
+Models/FBX format/building-sample-house-b.fbx
+Models/FBX format/building-sample-house-c.fbx
+Models/FBX format/building-sample-tower-a.fbx
+Models/FBX format/building-sample-tower-b.fbx
+Models/FBX format/building-sample-tower-c.fbx
+Models/FBX format/building-sample-tower-d.fbx
+Models/FBX format/building-steps-narrow-windows-round.fbx
+Models/FBX format/building-steps-narrow-windows.fbx
+Models/FBX format/building-steps-narrow.fbx
+Models/FBX format/building-steps-wide.fbx
+Models/FBX format/building-window-awnings.fbx
+Models/FBX format/building-window-balcony.fbx
+Models/FBX format/building-window-door-window-round.fbx
+Models/FBX format/building-window-door-window.fbx
+Models/FBX format/building-window-large-left.fbx
+Models/FBX format/building-window-large-middle.fbx
+Models/FBX format/building-window-large-right.fbx
+Models/FBX format/building-window-large.fbx
+Models/FBX format/building-window-left-sill.fbx
+Models/FBX format/building-window-left.fbx
+Models/FBX format/building-window-right-sill.fbx
+Models/FBX format/building-window-right.fbx
+Models/FBX format/building-window-sill.fbx
+Models/FBX format/building-window-wide-sill.fbx
+Models/FBX format/building-window-wide.fbx
+Models/FBX format/building-window.fbx
+Models/FBX format/building-windows-high-middle.fbx
+Models/FBX format/building-windows-high-top-round.fbx
+Models/FBX format/building-windows-high-top-square.fbx
+Models/FBX format/building-windows-round.fbx
+Models/FBX format/building-windows-sills-round.fbx
+Models/FBX format/building-windows-sills.fbx
+Models/FBX format/building-windows.fbx
+Models/FBX format/detail-ac-a.fbx
+Models/FBX format/detail-ac-b.fbx
+Models/FBX format/door-brown-glass.fbx
+Models/FBX format/door-brown-window.fbx
+Models/FBX format/door-brown.fbx
+Models/FBX format/door-white-glass.fbx
+Models/FBX format/door-white-window.fbx
+Models/FBX format/door-white.fbx
+Models/FBX format/roof-flat-awning-a.fbx
+Models/FBX format/roof-flat-awning-b.fbx
+Models/FBX format/roof-flat-awning-c.fbx
+Models/FBX format/roof-flat-border-center-corner.fbx
+Models/FBX format/roof-flat-border-center.fbx
+Models/FBX format/roof-flat-border-corner-slanted-passage.fbx
+Models/FBX format/roof-flat-border-corner-slanted.fbx
+Models/FBX format/roof-flat-border-corner.fbx
+Models/FBX format/roof-flat-border-end.fbx
+Models/FBX format/roof-flat-border-side.fbx
+Models/FBX format/roof-flat-border-straight.fbx
+Models/FBX format/roof-flat-center.fbx
+Models/FBX format/roof-flat-corner-high.fbx
+Models/FBX format/roof-flat-corner.fbx
+Models/FBX format/roof-flat-detail-a.fbx
+Models/FBX format/roof-flat-detail-b.fbx
+Models/FBX format/roof-flat-detail-c.fbx
+Models/FBX format/roof-flat-detail-d.fbx
+Models/FBX format/roof-flat-top.fbx
+Models/FBX format/roof-gable-corner.fbx
+Models/FBX format/roof-gable-end.fbx
+Models/FBX format/roof-gable.fbx
+Models/FBX format/roof-slanted-corner-a.fbx
+Models/FBX format/roof-slanted-corner-b.fbx
+Models/FBX format/roof-slanted-corner-c.fbx
+Models/FBX format/roof-slanted-corner-inner.fbx
+Models/FBX format/roof-slanted-detail.fbx
+Models/FBX format/roof-slanted-flat.fbx
+Models/FBX format/roof-slanted-window.fbx
+Models/FBX format/roof-slanted.fbx
+Models/FBX format/Textures/
+Models/FBX format/Textures/colormap.png
+Models/FBX format/window-brown-detailed.fbx
+Models/FBX format/window-brown-large.fbx
+Models/FBX format/window-brown-narrow.fbx
+Models/FBX format/window-brown-round-low.fbx
+Models/FBX format/window-brown-round-middle.fbx
+Models/FBX format/window-brown-round-narrow.fbx
+Models/FBX format/window-brown-round-top.fbx
+Models/FBX format/window-brown-round-wide.fbx
+Models/FBX format/window-brown-tall.fbx
+Models/FBX format/window-brown-wide.fbx
+Models/FBX format/window-brown.fbx
+Models/FBX format/window-white-detailed.fbx
+Models/FBX format/window-white-large.fbx
+Models/FBX format/window-white-narrow.fbx
+Models/FBX format/window-white-round-low.fbx
+Models/FBX format/window-white-round-middle.fbx
+Models/FBX format/window-white-round-narrow.fbx
+Models/FBX format/window-white-round-top.fbx
+Models/FBX format/window-white-round-wide.fbx
+Models/FBX format/window-white-tall.fbx
+Models/FBX format/window-white-wide.fbx
+Models/FBX format/window-white.fbx
+Models/GLB format/
+Models/GLB format/building-block.glb
+Models/GLB format/building-corner-bottom.glb
+Models/GLB format/building-corner-top.glb
+Models/GLB format/building-corner-window-middle.glb
+Models/GLB format/building-corner-window-narrow.glb
+Models/GLB format/building-corner-window-sill.glb
+Models/GLB format/building-corner-window-top-round.glb
+Models/GLB format/building-corner-window-top-square.glb
+Models/GLB format/building-corner-window.glb
+Models/GLB format/building-corner.glb
+Models/GLB format/building-door-window-narrow.glb
+Models/GLB format/building-door-window.glb
+Models/GLB format/building-door.glb
+Models/GLB format/building-edges-door.glb
+Models/GLB format/building-sample-house-a.glb
+Models/GLB format/building-sample-house-b.glb
+Models/GLB format/building-sample-house-c.glb
+Models/GLB format/building-sample-tower-a.glb
+Models/GLB format/building-sample-tower-b.glb
+Models/GLB format/building-sample-tower-c.glb
+Models/GLB format/building-sample-tower-d.glb
+Models/GLB format/building-steps-narrow-windows-round.glb
+Models/GLB format/building-steps-narrow-windows.glb
+Models/GLB format/building-steps-narrow.glb
+Models/GLB format/building-steps-wide.glb
+Models/GLB format/building-window-awnings.glb
+Models/GLB format/building-window-balcony.glb
+Models/GLB format/building-window-door-window-round.glb
+Models/GLB format/building-window-door-window.glb
+Models/GLB format/building-window-large-left.glb
+Models/GLB format/building-window-large-middle.glb
+Models/GLB format/building-window-large-right.glb
+Models/GLB format/building-window-large.glb
+Models/GLB format/building-window-left-sill.glb
+Models/GLB format/building-window-left.glb
+Models/GLB format/building-window-right-sill.glb
+Models/GLB format/building-window-right.glb
+Models/GLB format/building-window-sill.glb
+Models/GLB format/building-window-wide-sill.glb
+Models/GLB format/building-window-wide.glb
+Models/GLB format/building-window.glb
+Models/GLB format/building-windows-high-middle.glb
+Models/GLB format/building-windows-high-top-round.glb
+Models/GLB format/building-windows-high-top-square.glb
+Models/GLB format/building-windows-round.glb
+Models/GLB format/building-windows-sills-round.glb
+Models/GLB format/building-windows-sills.glb
+Models/GLB format/building-windows.glb
+Models/GLB format/detail-ac-a.glb
+Models/GLB format/detail-ac-b.glb
+Models/GLB format/door-brown-glass.glb
+Models/GLB format/door-brown-window.glb
+Models/GLB format/door-brown.glb
+Models/GLB format/door-white-glass.glb
+Models/GLB format/door-white-window.glb
+Models/GLB format/door-white.glb
+Models/GLB format/roof-flat-awning-a.glb
+Models/GLB format/roof-flat-awning-b.glb
+Models/GLB format/roof-flat-awning-c.glb
+Models/GLB format/roof-flat-border-center-corner.glb
+Models/GLB format/roof-flat-border-center.glb
+Models/GLB format/roof-flat-border-corner-slanted-passage.glb
+Models/GLB format/roof-flat-border-corner-slanted.glb
+Models/GLB format/roof-flat-border-corner.glb
+Models/GLB format/roof-flat-border-end.glb
+Models/GLB format/roof-flat-border-side.glb
+Models/GLB format/roof-flat-border-straight.glb
+Models/GLB format/roof-flat-center.glb
+Models/GLB format/roof-flat-corner-high.glb
+Models/GLB format/roof-flat-corner.glb
+Models/GLB format/roof-flat-detail-a.glb
+Models/GLB format/roof-flat-detail-b.glb
+Models/GLB format/roof-flat-detail-c.glb
+Models/GLB format/roof-flat-detail-d.glb
+Models/GLB format/roof-flat-top.glb
+Models/GLB format/roof-gable-corner.glb
+Models/GLB format/roof-gable-end.glb
+Models/GLB format/roof-gable.glb
+Models/GLB format/roof-slanted-corner-a.glb
+Models/GLB format/roof-slanted-corner-b.glb
+Models/GLB format/roof-slanted-corner-c.glb
+Models/GLB format/roof-slanted-corner-inner.glb
+Models/GLB format/roof-slanted-detail.glb
+Models/GLB format/roof-slanted-flat.glb
+Models/GLB format/roof-slanted-window.glb
+Models/GLB format/roof-slanted.glb
+Models/GLB format/Textures/
+Models/GLB format/Textures/colormap.png
+Models/GLB format/window-brown-detailed.glb
+Models/GLB format/window-brown-large.glb
+Models/GLB format/window-brown-narrow.glb
+Models/GLB format/window-brown-round-low.glb
+Models/GLB format/window-brown-round-middle.glb
+Models/GLB format/window-brown-round-narrow.glb
+Models/GLB format/window-brown-round-top.glb
+Models/GLB format/window-brown-round-wide.glb
+Models/GLB format/window-brown-tall.glb
+Models/GLB format/window-brown-wide.glb
+Models/GLB format/window-brown.glb
+Models/GLB format/window-white-detailed.glb
+Models/GLB format/window-white-large.glb
+Models/GLB format/window-white-narrow.glb
+Models/GLB format/window-white-round-low.glb
+Models/GLB format/window-white-round-middle.glb
+Models/GLB format/window-white-round-narrow.glb
+Models/GLB format/window-white-round-top.glb
+Models/GLB format/window-white-round-wide.glb
+Models/GLB format/window-white-tall.glb
+Models/GLB format/window-white-wide.glb
+Models/GLB format/window-white.glb
+Models/OBJ format/
+Models/OBJ format/building-block.mtl
+Models/OBJ format/building-block.obj
+Models/OBJ format/building-corner-bottom.mtl
+Models/OBJ format/building-corner-bottom.obj
+Models/OBJ format/building-corner-top.mtl
+Models/OBJ format/building-corner-top.obj
+Models/OBJ format/building-corner-window-middle.mtl
+Models/OBJ format/building-corner-window-middle.obj
+Models/OBJ format/building-corner-window-narrow.mtl
+Models/OBJ format/building-corner-window-narrow.obj
+Models/OBJ format/building-corner-window-sill.mtl
+Models/OBJ format/building-corner-window-sill.obj
+Models/OBJ format/building-corner-window-top-round.mtl
+Models/OBJ format/building-corner-window-top-round.obj
+Models/OBJ format/building-corner-window-top-square.mtl
+Models/OBJ format/building-corner-window-top-square.obj
+Models/OBJ format/building-corner-window.mtl
+Models/OBJ format/building-corner-window.obj
+Models/OBJ format/building-corner.mtl
+Models/OBJ format/building-corner.obj
+Models/OBJ format/building-door-window-narrow.mtl
+Models/OBJ format/building-door-window-narrow.obj
+Models/OBJ format/building-door-window.mtl
+Models/OBJ format/building-door-window.obj
+Models/OBJ format/building-door.mtl
+Models/OBJ format/building-door.obj
+Models/OBJ format/building-edges-door.mtl
+Models/OBJ format/building-edges-door.obj
+Models/OBJ format/building-sample-house-a.mtl
+Models/OBJ format/building-sample-house-a.obj
+Models/OBJ format/building-sample-house-b.mtl
+Models/OBJ format/building-sample-house-b.obj
+Models/OBJ format/building-sample-house-c.mtl
+Models/OBJ format/building-sample-house-c.obj
+Models/OBJ format/building-sample-tower-a.mtl
+Models/OBJ format/building-sample-tower-a.obj
+Models/OBJ format/building-sample-tower-b.mtl
+Models/OBJ format/building-sample-tower-b.obj
+Models/OBJ format/building-sample-tower-c.mtl
+Models/OBJ format/building-sample-tower-c.obj
+Models/OBJ format/building-sample-tower-d.mtl
+Models/OBJ format/building-sample-tower-d.obj
+Models/OBJ format/building-steps-narrow-windows-round.mtl
+Models/OBJ format/building-steps-narrow-windows-round.obj
+Models/OBJ format/building-steps-narrow-windows.mtl
+Models/OBJ format/building-steps-narrow-windows.obj
+Models/OBJ format/building-steps-narrow.mtl
+Models/OBJ format/building-steps-narrow.obj
+Models/OBJ format/building-steps-wide.mtl
+Models/OBJ format/building-steps-wide.obj
+Models/OBJ format/building-window-awnings.mtl
+Models/OBJ format/building-window-awnings.obj
+Models/OBJ format/building-window-balcony.mtl
+Models/OBJ format/building-window-balcony.obj
+Models/OBJ format/building-window-door-window-round.mtl
+Models/OBJ format/building-window-door-window-round.obj
+Models/OBJ format/building-window-door-window.mtl
+Models/OBJ format/building-window-door-window.obj
+Models/OBJ format/building-window-large-left.mtl
+Models/OBJ format/building-window-large-left.obj
+Models/OBJ format/building-window-large-middle.mtl
+Models/OBJ format/building-window-large-middle.obj
+Models/OBJ format/building-window-large-right.mtl
+Models/OBJ format/building-window-large-right.obj
+Models/OBJ format/building-window-large.mtl
+Models/OBJ format/building-window-large.obj
+Models/OBJ format/building-window-left-sill.mtl
+Models/OBJ format/building-window-left-sill.obj
+Models/OBJ format/building-window-left.mtl
+Models/OBJ format/building-window-left.obj
+Models/OBJ format/building-window-right-sill.mtl
+Models/OBJ format/building-window-right-sill.obj
+Models/OBJ format/building-window-right.mtl
+Models/OBJ format/building-window-right.obj
+Models/OBJ format/building-window-sill.mtl
+Models/OBJ format/building-window-sill.obj
+Models/OBJ format/building-window-wide-sill.mtl
+Models/OBJ format/building-window-wide-sill.obj
+Models/OBJ format/building-window-wide.mtl
+Models/OBJ format/building-window-wide.obj
+Models/OBJ format/building-window.mtl
+Models/OBJ format/building-window.obj
+Models/OBJ format/building-windows-high-middle.mtl
+Models/OBJ format/building-windows-high-middle.obj
+Models/OBJ format/building-windows-high-top-round.mtl
+Models/OBJ format/building-windows-high-top-round.obj
+Models/OBJ format/building-windows-high-top-square.mtl
+Models/OBJ format/building-windows-high-top-square.obj
+Models/OBJ format/building-windows-round.mtl
+Models/OBJ format/building-windows-round.obj
+Models/OBJ format/building-windows-sills-round.mtl
+Models/OBJ format/building-windows-sills-round.obj
+Models/OBJ format/building-windows-sills.mtl
+Models/OBJ format/building-windows-sills.obj
+Models/OBJ format/building-windows.mtl
+Models/OBJ format/building-windows.obj
+Models/OBJ format/detail-ac-a.mtl
+Models/OBJ format/detail-ac-a.obj
+Models/OBJ format/detail-ac-b.mtl
+Models/OBJ format/detail-ac-b.obj
+Models/OBJ format/door-brown-glass.mtl
+Models/OBJ format/door-brown-glass.obj
+Models/OBJ format/door-brown-window.mtl
+Models/OBJ format/door-brown-window.obj
+Models/OBJ format/door-brown.mtl
+Models/OBJ format/door-brown.obj
+Models/OBJ format/door-white-glass.mtl
+Models/OBJ format/door-white-glass.obj
+Models/OBJ format/door-white-window.mtl
+Models/OBJ format/door-white-window.obj
+Models/OBJ format/door-white.mtl
+Models/OBJ format/door-white.obj
+Models/OBJ format/roof-flat-awning-a.mtl
+Models/OBJ format/roof-flat-awning-a.obj
+Models/OBJ format/roof-flat-awning-b.mtl
+Models/OBJ format/roof-flat-awning-b.obj
+Models/OBJ format/roof-flat-awning-c.mtl
+Models/OBJ format/roof-flat-awning-c.obj
+Models/OBJ format/roof-flat-border-center-corner.mtl
+Models/OBJ format/roof-flat-border-center-corner.obj
+Models/OBJ format/roof-flat-border-center.mtl
+Models/OBJ format/roof-flat-border-center.obj
+Models/OBJ format/roof-flat-border-corner-slanted-passage.mtl
+Models/OBJ format/roof-flat-border-corner-slanted-passage.obj
+Models/OBJ format/roof-flat-border-corner-slanted.mtl
+Models/OBJ format/roof-flat-border-corner-slanted.obj
+Models/OBJ format/roof-flat-border-corner.mtl
+Models/OBJ format/roof-flat-border-corner.obj
+Models/OBJ format/roof-flat-border-end.mtl
+Models/OBJ format/roof-flat-border-end.obj
+Models/OBJ format/roof-flat-border-side.mtl
+Models/OBJ format/roof-flat-border-side.obj
+Models/OBJ format/roof-flat-border-straight.mtl
+Models/OBJ format/roof-flat-border-straight.obj
+Models/OBJ format/roof-flat-center.mtl
+Models/OBJ format/roof-flat-center.obj
+Models/OBJ format/roof-flat-corner-high.mtl
+Models/OBJ format/roof-flat-corner-high.obj
+Models/OBJ format/roof-flat-corner.mtl
+Models/OBJ format/roof-flat-corner.obj
+Models/OBJ format/roof-flat-detail-a.mtl
+Models/OBJ format/roof-flat-detail-a.obj
+Models/OBJ format/roof-flat-detail-b.mtl
+Models/OBJ format/roof-flat-detail-b.obj
+Models/OBJ format/roof-flat-detail-c.mtl
+Models/OBJ format/roof-flat-detail-c.obj
+Models/OBJ format/roof-flat-detail-d.mtl
+Models/OBJ format/roof-flat-detail-d.obj
+Models/OBJ format/roof-flat-top.mtl
+Models/OBJ format/roof-flat-top.obj
+Models/OBJ format/roof-gable-corner.mtl
+Models/OBJ format/roof-gable-corner.obj
+Models/OBJ format/roof-gable-end.mtl
+Models/OBJ format/roof-gable-end.obj
+Models/OBJ format/roof-gable.mtl
+Models/OBJ format/roof-gable.obj
+Models/OBJ format/roof-slanted-corner-a.mtl
+Models/OBJ format/roof-slanted-corner-a.obj
+Models/OBJ format/roof-slanted-corner-b.mtl
+Models/OBJ format/roof-slanted-corner-b.obj
+Models/OBJ format/roof-slanted-corner-c.mtl
+Models/OBJ format/roof-slanted-corner-c.obj
+Models/OBJ format/roof-slanted-corner-inner.mtl
+Models/OBJ format/roof-slanted-corner-inner.obj
+Models/OBJ format/roof-slanted-detail.mtl
+Models/OBJ format/roof-slanted-detail.obj
+Models/OBJ format/roof-slanted-flat.mtl
+Models/OBJ format/roof-slanted-flat.obj
+Models/OBJ format/roof-slanted-window.mtl
+Models/OBJ format/roof-slanted-window.obj
+Models/OBJ format/roof-slanted.mtl
+Models/OBJ format/roof-slanted.obj
+Models/OBJ format/Textures/
+Models/OBJ format/Textures/colormap.png
+Models/OBJ format/window-brown-detailed.mtl
+Models/OBJ format/window-brown-detailed.obj
+Models/OBJ format/window-brown-large.mtl
+Models/OBJ format/window-brown-large.obj
+Models/OBJ format/window-brown-narrow.mtl
+Models/OBJ format/window-brown-narrow.obj
+Models/OBJ format/window-brown-round-low.mtl
+Models/OBJ format/window-brown-round-low.obj
+Models/OBJ format/window-brown-round-middle.mtl
+Models/OBJ format/window-brown-round-middle.obj
+Models/OBJ format/window-brown-round-narrow.mtl
+Models/OBJ format/window-brown-round-narrow.obj
+Models/OBJ format/window-brown-round-top.mtl
+Models/OBJ format/window-brown-round-top.obj
+Models/OBJ format/window-brown-round-wide.mtl
+Models/OBJ format/window-brown-round-wide.obj
+Models/OBJ format/window-brown-tall.mtl
+Models/OBJ format/window-brown-tall.obj
+Models/OBJ format/window-brown-wide.mtl
+Models/OBJ format/window-brown-wide.obj
+Models/OBJ format/window-brown.mtl
+Models/OBJ format/window-brown.obj
+Models/OBJ format/window-white-detailed.mtl
+Models/OBJ format/window-white-detailed.obj
+Models/OBJ format/window-white-large.mtl
+Models/OBJ format/window-white-large.obj
+Models/OBJ format/window-white-narrow.mtl
+Models/OBJ format/window-white-narrow.obj
+Models/OBJ format/window-white-round-low.mtl
+Models/OBJ format/window-white-round-low.obj
+Models/OBJ format/window-white-round-middle.mtl
+Models/OBJ format/window-white-round-middle.obj
+Models/OBJ format/window-white-round-narrow.mtl
+Models/OBJ format/window-white-round-narrow.obj
+Models/OBJ format/window-white-round-top.mtl
+Models/OBJ format/window-white-round-top.obj
+Models/OBJ format/window-white-round-wide.mtl
+Models/OBJ format/window-white-round-wide.obj
+Models/OBJ format/window-white-tall.mtl
+Models/OBJ format/window-white-tall.obj
+Models/OBJ format/window-white-wide.mtl
+Models/OBJ format/window-white-wide.obj
+Models/OBJ format/window-white.mtl
+Models/OBJ format/window-white.obj
+Models/Textures/
+Models/Textures/variation-a.png
+Models/Textures/variation-b.png
+Overview.html
+Preview (Variation A).png
+Preview (Variation B).png
+Preview.png
+Previews/
+Previews/building-block.png
+Previews/building-corner-bottom.png
+Previews/building-corner-top.png
+Previews/building-corner-window-middle.png
+Previews/building-corner-window-narrow.png
+Previews/building-corner-window-sill.png
+Previews/building-corner-window-top-round.png
+Previews/building-corner-window-top-square.png
+Previews/building-corner-window.png
+Previews/building-corner.png
+Previews/building-door-window-narrow.png
+Previews/building-door-window.png
+Previews/building-door.png
+Previews/building-edges-door.png
+Previews/building-sample-house-a.png
+Previews/building-sample-house-b.png
+Previews/building-sample-house-c.png
+Previews/building-sample-tower-a.png
+Previews/building-sample-tower-b.png
+Previews/building-sample-tower-c.png
+Previews/building-sample-tower-d.png
+Previews/building-steps-narrow-windows-round.png
+Previews/building-steps-narrow-windows.png
+Previews/building-steps-narrow.png
+Previews/building-steps-wide.png
+Previews/building-window-awnings.png
+Previews/building-window-balcony.png
+Previews/building-window-door-window-round.png
+Previews/building-window-door-window.png
+Previews/building-window-large-left.png
+Previews/building-window-large-middle.png
+Previews/building-window-large-right.png
+Previews/building-window-large.png
+Previews/building-window-left-sill.png
+Previews/building-window-left.png
+Previews/building-window-right-sill.png
+Previews/building-window-right.png
+Previews/building-window-sill.png
+Previews/building-window-wide-sill.png
+Previews/building-window-wide.png
+Previews/building-window.png
+Previews/building-windows-high-middle.png
+Previews/building-windows-high-top-round.png
+Previews/building-windows-high-top-square.png
+Previews/building-windows-round.png
+Previews/building-windows-sills-round.png
+Previews/building-windows-sills.png
+Previews/building-windows.png
+Previews/detail-ac-a.png
+Previews/detail-ac-b.png
+Previews/door-brown-glass.png
+Previews/door-brown-window.png
+Previews/door-brown.png
+Previews/door-white-glass.png
+Previews/door-white-window.png
+Previews/door-white.png
+Previews/roof-flat-awning-a.png
+Previews/roof-flat-awning-b.png
+Previews/roof-flat-awning-c.png
+Previews/roof-flat-border-center-corner.png
+Previews/roof-flat-border-center.png
+Previews/roof-flat-border-corner-slanted-passage.png
+Previews/roof-flat-border-corner-slanted.png
+Previews/roof-flat-border-corner.png
+Previews/roof-flat-border-end.png
+Previews/roof-flat-border-side.png
+Previews/roof-flat-border-straight.png
+Previews/roof-flat-center.png
+Previews/roof-flat-corner-high.png
+Previews/roof-flat-corner.png
+Previews/roof-flat-detail-a.png
+Previews/roof-flat-detail-b.png
+Previews/roof-flat-detail-c.png
+Previews/roof-flat-detail-d.png
+Previews/roof-flat-top.png
+Previews/roof-gable-corner.png
+Previews/roof-gable-end.png
+Previews/roof-gable.png
+Previews/roof-slanted-corner-a.png
+Previews/roof-slanted-corner-b.png
+Previews/roof-slanted-corner-c.png
+Previews/roof-slanted-corner-inner.png
+Previews/roof-slanted-detail.png
+Previews/roof-slanted-flat.png
+Previews/roof-slanted-window.png
+Previews/roof-slanted.png
+Previews/window-brown-detailed.png
+Previews/window-brown-large.png
+Previews/window-brown-narrow.png
+Previews/window-brown-round-low.png
+Previews/window-brown-round-middle.png
+Previews/window-brown-round-narrow.png
+Previews/window-brown-round-top.png
+Previews/window-brown-round-wide.png
+Previews/window-brown-tall.png
+Previews/window-brown-wide.png
+Previews/window-brown.png
+Previews/window-white-detailed.png
+Previews/window-white-large.png
+Previews/window-white-narrow.png
+Previews/window-white-round-low.png
+Previews/window-white-round-middle.png
+Previews/window-white-round-narrow.png
+Previews/window-white-round-top.png
+Previews/window-white-round-wide.png
+Previews/window-white-tall.png
+Previews/window-white-wide.png
+Previews/window-white.png
+Sample.png
+View Documentation.url
+Visit Kenney.url
+Visit Patreon.url

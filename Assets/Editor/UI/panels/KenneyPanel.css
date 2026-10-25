@@ -1,0 +1,62 @@
+/* Kenney Assets panel (kenney-assets package). */
+
+.kenney-root {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 12px;
+}
+
+.kenney-intro {
+	color: #c0c8d0;
+	font-size: 12px;
+	white-space: normal;
+}
+
+.kenney-links {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+}
+
+.kenney-status {
+	color: #a0a8b0;
+	font-size: 12px;
+	white-space: normal;
+}
+
+.kenney-status.error {
+	color: #e07070;
+}
+
+.kenney-heading {
+	color: #e0e0e0;
+	font-size: 13px;
+	margin-top: 8px;
+}
+
+.kenney-detail {
+	color: #808080;
+	font-size: 11px;
+}
+
+.kenney-pack-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.kenney-pack-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 8px;
+	border-top: 1px solid #333333;
+}
+
+.kenney-pack-name {
+	flex-grow: 1;
+	color: #e0e0e0;
+	font-size: 12px;
+}

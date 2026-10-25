@@ -1,0 +1,11 @@
+<UIElement class="kenney-root">
+  <Label class="kenney-intro" text="Find a pack on kenney.nl and download it. While this panel is open, a finished download is imported into Assets/Kenney." />
+  <UIElement class="kenney-links">
+    <Button id="KenneyOpenSite" text="Open kenney.nl" />
+    <Button id="KenneyOpenBundle" class="secondary" text="All-in-1 bundle" />
+  </UIElement>
+  <Label id="KenneyStatus" class="kenney-status" text="" />
+  <Label class="kenney-heading" text="Downloaded packs" />
+  <Label id="KenneyCacheEmpty" class="kenney-detail" text="No packs downloaded yet." />
+  <UIElement id="KenneyPackRows" class="kenney-pack-rows" />
+</UIElement>
