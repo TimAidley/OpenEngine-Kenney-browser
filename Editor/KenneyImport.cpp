@@ -90,6 +90,7 @@ KenneyImportResult ImportKenneyPack(const std::filesystem::path& zipFile, const 
             CopyKeptFiles(staging, kept, assetsDir / "Kenney" / name.Slug, result);
     }
     std::filesystem::remove_all(staging, ec);
+    std::filesystem::remove(staging.parent_path(), ec); // only succeeds once empty
 
     if (!result.Files.empty())
         RecordSourcePage(result.Files, KenneyPackPageUrl(name.Slug));

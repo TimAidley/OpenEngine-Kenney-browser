@@ -3,10 +3,14 @@
 #include "KenneyImportQueue.h"
 
 #include "Editor/EditorPaths.h"
+#include "Logger/Logger.h"
 #include "Platform/Shell.h"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wchanges-meaning" // see KenneyPanel.h
 #include "UI/Controls/Button.h"
 #include "UI/Controls/Label.h"
 #include "UI/UIManager.h"
+#pragma GCC diagnostic pop
 
 #include <memory>
 #include <system_error>
@@ -95,7 +99,7 @@ void KenneyPanel::OnLayoutReconciled()
 void KenneyPanel::OnLayoutBound()
 {
     ResolveElements();
-    StartWatchingDownloads();
+    UpdateWatchingForTab();
     RefreshPackRows();
 
     if (m_RefreshToken == 0)
@@ -105,6 +109,29 @@ void KenneyPanel::OnLayoutBound()
             m_RefreshManager = UIManagerRef(manager);
             m_RefreshToken = manager->RegisterPeriodicRefresh([this]() { Tick(); });
         }
+    }
+}
+
+void KenneyPanel::UpdateWatchingForTab()
+{
+    // The dock tree names each tab "tab:<panel id>". An inactive tab keeps its
+    // tab element but unmounts the panel, so the panel's own attachment cannot
+    // tell an inactive tab from a closed one.
+    static const StringId kTabId = HashStringId(std::string("tab:") + kPanelId);
+    UIManager* manager = GetOwnerManager();
+    UIElement* root = manager ? manager->GetRootElement() : nullptr;
+    const bool tabOpen = root && root->FindById(kTabId);
+    if (tabOpen == m_TabOpen)
+        return;
+    m_TabOpen = tabOpen;
+    if (tabOpen)
+    {
+        StartWatchingDownloads();
+    }
+    else
+    {
+        m_Watcher.Stop();
+        Logger::Log::Debug("Kenney: panel closed; stopped watching {}", m_DownloadDirectory.string());
     }
 }
 
@@ -125,12 +152,14 @@ void KenneyPanel::StartWatchingDownloads()
     }
     m_WatchStatus = "Watching " + m_DownloadDirectory.string() + " for kenney.nl downloads.";
     SetStatus(m_WatchStatus, false);
+    Logger::Log::Debug("Kenney: watching {}", m_DownloadDirectory.string());
 }
 
 void KenneyPanel::Tick()
 {
     if (!IsLayoutBound())
         return;
+    UpdateWatchingForTab();
 
     for (const std::filesystem::path& download : m_Watcher.TakeFinishedDownloads(std::chrono::steady_clock::now()))
     {

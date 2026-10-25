@@ -1,2 +1,4 @@
 Binaries/
 Tests/build/
+.Cache/
+AssetDatabase.assetdb

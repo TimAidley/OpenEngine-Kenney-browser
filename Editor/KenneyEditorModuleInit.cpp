@@ -20,7 +20,7 @@ struct KenneyEditorModuleRegistrar
         using namespace GameEngine;
 
         Editor::EditorPanelDescriptor panel;
-        panel.PanelId = "KenneyAssets";
+        panel.PanelId = KenneyAssets::KenneyPanel::kPanelId;
         panel.Title = "Kenney Assets";
         panel.AssetSourceAlias = "kenney-assets";
         panel.LayoutAssetPath = "Editor/UI/panels/KenneyPanel.uxml";

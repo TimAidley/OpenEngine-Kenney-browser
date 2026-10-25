@@ -3,8 +3,14 @@
 #include "KenneyDownloadWatcher.h"
 #include "KenneyPackCache.h"
 
+// The SDK's UI headers reuse type names as member names, which GCC rejects
+// under -Wchanges-meaning. The engine's own build passes -Wno-changes-meaning;
+// the editor's generated package build does not, so silence it here.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wchanges-meaning"
 #include "UI/AssetBoundDockPanel.h"
 #include "UI/UIManagerRef.h"
+#pragma GCC diagnostic pop
 
 #include <cstdint>
 #include <filesystem>
@@ -26,6 +32,8 @@ namespace GameEngine::KenneyAssets
 class KenneyPanel final : public Editor::AssetBoundDockPanel
 {
 public:
+    static constexpr const char* kPanelId = "KenneyAssets";
+
     KenneyPanel();
     ~KenneyPanel() override;
 
@@ -38,6 +46,9 @@ protected:
 private:
     void ResolveElements();
     void StartWatchingDownloads();
+    // Watches the download folder only while the panel's tab exists, active
+    // or not: closing the tab detaches the panel without destroying it.
+    void UpdateWatchingForTab();
     // Periodic refresh tick: hands finished downloads to the import queue and
     // shows the outcomes of finished imports.
     void Tick();
@@ -48,6 +59,7 @@ private:
     KenneyDownloadWatcher m_Watcher;
     std::filesystem::path m_DownloadDirectory;
     std::string m_WatchStatus;
+    bool m_TabOpen = false;
 
     WeakRef<Label> m_StatusLabel;
     WeakRef<Label> m_CacheEmptyLabel;
