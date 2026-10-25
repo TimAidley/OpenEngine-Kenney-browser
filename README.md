@@ -11,7 +11,7 @@ Add the package to the project's `Packages/manifest.json`:
 ```json
 {
   "dependencies": {
-    "kenney-assets": "git+https://github.com/TimAidley/OpenEngine-Kenney-browser.git#0.1.1&path=kenney-assets"
+    "kenney-assets": "git+https://github.com/TimAidley/OpenEngine-Kenney-browser.git#0.1.2&path=kenney-assets"
   }
 }
 ```
