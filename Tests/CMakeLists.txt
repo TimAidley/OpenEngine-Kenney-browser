@@ -19,10 +19,10 @@ find_package(GTest CONFIG REQUIRED)
 add_executable(KenneyAssetsTests
     KenneyPackNameTests.cpp
     KenneyExtractRulesTests.cpp
-    ../Editor/KenneyPackName.cpp
-    ../Editor/KenneyExtractRules.cpp)
+    ../kenney-assets/Editor/KenneyPackName.cpp
+    ../kenney-assets/Editor/KenneyExtractRules.cpp)
 target_include_directories(KenneyAssetsTests PRIVATE
-    ../Editor
+    ../kenney-assets/Editor
     "${OPENENGINE_ROOT}/Engine/Modules/Types/Include")
 target_compile_definitions(KenneyAssetsTests PRIVATE
     KENNEY_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures")
